@@ -1,9 +1,26 @@
 <template>
   <div class="hello">
     <h1>Latest expenses</h1>
-    <div v-for="expense in expenses" :key="expense.id">
-      <div>{{ expense.store }} || {{ expense.amount }} || {{ expense.timeOfPurchase }}</div>
-    </div>
+    <table class="table table-hover table-sm">
+      <thead class="thead-inverse">
+        <tr>
+          <th>Date</th>
+          <th>Store</th>
+          <th>Amount</th>
+          <th>User</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(expense, index) in expenses" :key="expense.id">
+          <td>{{expense.timeOfPurchase}}</td>
+          <td>{{expense.store}}</td>
+          <td>{{expense.amount}}</td>
+          <td>{{expense.profile.givenName}}</td>
+          <td>blah</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
