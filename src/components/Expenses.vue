@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <tr v-for="(expense, index) in expenses" :key="expense.id">
-          <td>{{expense.timeOfPurchase}}</td>
+          <td>{{expense.timeOfPurchase | longDate}}</td>
           <td>{{expense.store}}</td>
           <td>{{expense.amount}}</td>
           <td>{{expense.profile.givenName}}</td>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: 'Expenses',
   data () {
@@ -38,6 +40,12 @@ export default {
     }, error => {
       console.log('error', error)
     })
+  },
+  filters: {
+    longDate: function (date) {
+      if (date == null) return ''
+      return moment(date).format('DD. MMMM YYYY')
+    }
   }
 }
 </script>
