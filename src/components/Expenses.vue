@@ -1,7 +1,7 @@
 <template>
-  <div class="hello">
-    <h1>Latest expenses</h1>
-    <table class="table table-hover table-sm">
+  <div>
+    <h1>Expenses</h1>
+    <table class="table table-sm">
       <thead class="thead-inverse">
         <tr>
           <th>Date</th>
@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <tr v-for="(expense, index) in expenses" :key="expense.id">
-          <td>{{ longDate(expense.timeOfPurchase) }}</td>
+          <router-link :to="{ name: 'ExpenseDetails', params: { expenseId: expense.id }}">{{longDate(expense.timeOfPurchase)}}</router-link>
           <td>{{expense.store}}</td>
           <td>{{expense.amount}}</td>
           <td>{{expense.profile.givenName}}</td>
