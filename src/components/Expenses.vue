@@ -17,7 +17,7 @@
           <td>{{expense.store}}</td>
           <td>{{expense.amount}}</td>
           <td>{{expense.profile.givenName}}</td>
-          <td>blah</td>
+          <button type="button" class="btn btn-danger" v-on:click="deleteExpense(expense.id)">Delete</button>
         </tr>
       </tbody>
     </table>
@@ -35,16 +35,26 @@ export default {
     }
   },
   created: function () {
-    this.$http.get('http://localhost:8666/api/expenses').then(response => {
-      this.expenses = response.data
-    }, error => {
-      console.log('error', error)
-    })
+    this.getExpense()
   },
   methods: {
     longDate: function (input) {
       if (input == null) return ''
       return moment(input).format('DD. MMMM YYYY')
+    },
+    getExpense: function () {
+      this.$http.get('http://localhost:8666/api/expenses').then(response => {
+        this.expenses = response.data
+      }, error => {
+        console.log('error', error)
+      })
+    },
+    deleteExpense: function (expenseId) {
+      this.$http.delete(`http://localhost:8666/api/expenses/${expenseId}`).then(response => {
+        this.getExpense()
+      }, error => {
+        console.log('error', error)
+      })
     }
   }
 }
