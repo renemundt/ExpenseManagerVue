@@ -35,14 +35,14 @@ export default {
     }
   },
   created: function () {
-    this.getExpense()
+    this.getExpenses()
   },
   methods: {
     longDate: function (input) {
       if (input == null) return ''
       return moment(input).format('DD. MMMM YYYY')
     },
-    getExpense: function () {
+    getExpenses: function () {
       this.$http.get('http://localhost:8666/api/expenses').then(response => {
         this.expenses = response.data
       }, error => {
@@ -51,7 +51,7 @@ export default {
     },
     deleteExpense: function (expenseId) {
       this.$http.delete(`http://localhost:8666/api/expenses/${expenseId}`).then(response => {
-        this.getExpense()
+        this.getExpenses()
       }, error => {
         console.log('error', error)
       })
