@@ -13,13 +13,15 @@
       </thead>
       <tbody>
         <tr v-for="(expense, index) in expenses" :key="expense.id">
-          <router-link :to="{ name: 'ExpenseDetails', params: { expenseId: expense.id }}">{{longDate(expense.timeOfPurchase)}}</router-link>
+          <td><router-link :to="{ name: 'ExpenseDetails', params: { expenseId: expense.id }}">{{longDate(expense.timeOfPurchase)}}</router-link></td>
           <td>{{expense.store}}</td>
           <td>{{expense.amount}}</td>
           <td>{{expense.profile.givenName}}</td>
-          <button v-if="!deleteConfirm" type="button" class="btn btn-danger" v-on:click="confirm()">Delete</button>
-          <button v-if="deleteConfirm" type="button" class="btn btn-warning" v-on:click="cancel()">Cancel</button>
-          <button v-if="deleteConfirm" type="button" class="btn btn-danger" v-on:click="deleteExpense(expense.id)">Delete(Yes)</button>
+          <td>
+            <button v-if="!deleteConfirm" type="button" class="btn btn-danger" v-on:click="confirm()">Delete</button>
+            <button v-if="deleteConfirm" type="button" class="btn btn-warning" v-on:click="cancel()">Cancel</button>
+            <button v-if="deleteConfirm" type="button" class="btn btn-danger" v-on:click="deleteExpense(expense.id)">Delete(Yes)</button>
+          </td>
         </tr>
       </tbody>
     </table>
