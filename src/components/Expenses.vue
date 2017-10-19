@@ -17,7 +17,9 @@
           <td>{{expense.store}}</td>
           <td>{{expense.amount}}</td>
           <td>{{expense.profile.givenName}}</td>
-          <button type="button" class="btn btn-danger" v-on:click="deleteExpense(expense.id)">Delete</button>
+          <button v-if="!deleteConfirm" type="button" class="btn btn-danger" v-on:click="confirm()">Delete</button>
+          <button v-if="deleteConfirm" type="button" class="btn btn-warning" v-on:click="cancel()">Cancel</button>
+          <button v-if="deleteConfirm" type="button" class="btn btn-danger" v-on:click="deleteExpense(expense.id)">Delete(Yes)</button>
         </tr>
       </tbody>
     </table>
@@ -31,7 +33,8 @@ export default {
   name: 'Expenses',
   data () {
     return {
-      expenses: []
+      expenses: [],
+      deleteConfirm: false
     }
   },
   created: function () {
@@ -55,6 +58,12 @@ export default {
       }, error => {
         console.log('error', error)
       })
+    },
+    confirm: function () {
+      this.deleteConfirm = true
+    },
+    cancel: function () {
+      this.deleteConfirm = false
     }
   }
 }
