@@ -4,11 +4,11 @@
     <table class="table table-sm">
       <thead class="thead-inverse">
         <tr>
-          <th>Date</th>
-          <th>Store</th>
-          <th>Amount</th>
-          <th>User</th>
-          <th>Action</th>
+          <th scope="col">Date</th>
+          <th scope="col">Store</th>
+          <th scope="col">Amount</th>
+          <th scope="col">User</th>
+          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -18,9 +18,11 @@
           <td>{{expense.amount}}</td>
           <td>{{expense.profile.givenName}}</td>
           <td>
-            <button v-if="!deleteConfirm" type="button" class="btn btn-danger" v-on:click="confirm()">Delete</button>
-            <button v-if="deleteConfirm" type="button" class="btn btn-warning" v-on:click="cancel()">Cancel</button>
-            <button v-if="deleteConfirm" type="button" class="btn btn-danger" v-on:click="deleteExpense(expense.id)">Delete(Yes)</button>
+            <div class="fixed-buttons-width">
+              <button v-if="!deleteConfirm" type="button" class="btn btn-danger btn-sm" v-on:click="confirm()">Delete</button>
+              <button v-if="deleteConfirm" type="button" class="btn btn-warning btn-sm pull-left" v-on:click="cancel()">Cancel</button>
+              <button v-if="deleteConfirm" type="button" class="btn btn-danger btn-sm pull-right" v-on:click="deleteExpense(expense.id)">Delete(Yes)</button>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -76,5 +78,9 @@ export default {
 h1,
 h2 {
   font-weight: normal;
+}
+
+.fixed-buttons-width {
+  width: 150px;
 }
 </style>
