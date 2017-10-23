@@ -19,9 +19,9 @@
           <td>{{expense.profile.givenName}}</td>
           <td>
             <div class="fixed-buttons-width">
-              <button v-if="!deleteConfirm && activeButtonIndex == null" type="button" class="btn btn-danger btn-sm" v-on:click="alert(index)">Delete</button>
-              <button v-if="deleteConfirm && activeButtonIndex == index" type="button" class="btn btn-warning btn-sm pull-left" v-on:click="cancel()">Cancel</button>
-              <button v-if="deleteConfirm && activeButtonIndex == index" type="button" class="btn btn-danger btn-sm pull-right" v-on:click="deleteExpense(expense.id)">Delete(Yes)</button>
+              <button v-if="activeButtonIndex == null" type="button" class="btn btn-danger btn-sm" v-on:click="alert(index)">Delete</button>
+              <button v-if="activeButtonIndex == index" type="button" class="btn btn-warning btn-sm pull-left" v-on:click="cancel()">Cancel</button>
+              <button v-if="activeButtonIndex == index" type="button" class="btn btn-danger btn-sm pull-right" v-on:click="deleteExpense(expense.id)">Delete(Yes)</button>
             </div>
           </td>
         </tr>
@@ -38,7 +38,6 @@ export default {
   data () {
     return {
       expenses: [],
-      deleteConfirm: false,
       activeButtonIndex: null
     }
   },
@@ -57,7 +56,6 @@ export default {
       const endDate = `${presentDay.format('YYYY')}-${presentDay.format('MM')}-${presentDay.daysInMonth()}T23:59:59.000Z`
       const url = `http://localhost:8666/api/expenses?startDate=${startDate}&endDate=${endDate}`
       this.$http.get(url).then(response => {
-      // this.$http.get('http://localhost:8666/api/expenses').then(response => {
         this.expenses = this.sortExpenses(response.data)
       }, error => {
         console.log('error', error)
@@ -77,7 +75,7 @@ export default {
     },
     cancel: function () {
       this.activeButtonIndex = null
-      this.deleteConfirm = false
+      this.deleteCoZnfirm = false
     },
     sortExpenses: function (expenses) {
       return expenses.sort(function (a, b) {
