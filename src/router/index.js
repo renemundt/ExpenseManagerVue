@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Expenses from '@/components/Expenses'
 import ExpenseDetails from '@/components/ExpenseDetails'
 import CreateExpense from '@/components/CreateExpense'
+import Barometer from '@/components/Barometer'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/create-expense',
       name: 'CreateExpense',
       component: CreateExpense
+    },
+    {
+      path: '/barometer',
+      name: 'Barometer',
+      component: Barometer
     }
   ]
 })
