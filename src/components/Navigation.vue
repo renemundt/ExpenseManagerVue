@@ -27,12 +27,7 @@
 
 <script>
 export default {
-  name: 'Navigation',
-  data () {
-    return {
-      expenses: []
-    }
-  }
+  name: 'Navigation'
 }
 </script>
 

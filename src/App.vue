@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <navigation></navigation>
+    <indicator></indicator>
     <main role="main">
       <router-view/>
     </main>
@@ -9,10 +10,12 @@
 
 <script>
 import Navigation from './components/navigation.vue'
+import Indicator from './components/indicator.vue'
 export default {
   name: 'app',
   components: {
-    'navigation': Navigation
+    'navigation': Navigation,
+    'indicator': Indicator
   }
 }
 </script>
