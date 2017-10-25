@@ -1,5 +1,5 @@
 <template>
-  <div class="indicator">
+  <div class="indicator" v-bind:class="[temperature]">
     <div class="average">{{average}}</div>
   </div>
 </template>
@@ -30,9 +30,9 @@ export default {
       }
       let total = expenses.map(expense => expense.amount).reduce((previous, current) => { return previous + current })
       this.average = total / +moment().toDate().getDate()
-      if (this.average < 300) { this.temperature = 'NORMAL' }
-      if (this.average > 300 && this.average < 400) { this.temperature = 'MIDDLE' }
-      if (this.average > 400) { this.temperature = 'HIGH' }
+      if (this.average < 300) { this.temperature = 'temperature-normal' }
+      if (this.average > 300 && this.average < 400) { this.temperature = 'temperature-middle' }
+      if (this.average > 400) { this.temperature = 'temperature-high' }
     }, error => {
       console.log('error', error)
     })
@@ -49,7 +49,6 @@ h2 {
 .indicator {
   width: 200px;
   height: 100%;
-  background-color: red;
 
   position: absolute;
   top:0;
@@ -65,6 +64,15 @@ h2 {
   transform: translateY(-50%); 
   text-align: center;
   font-weight: bold;
+}
+.temperature-normal {
+  background-color: darkgreen;
+}
+.temperature-middle {
+  background-color: yellow;
+}
+.temperature-high {
+  background-color: red;
 }
 
 </style>
