@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <div>AVERAGE: {{average}}</div>
-    <div>TEMPERATURE: {{temperature}}</div>
+  <div class="indicator">
+    <div class="average">{{average}}</div>
   </div>
 </template>
 
@@ -9,7 +8,7 @@
 import moment from 'moment'
 
 export default {
-  name: 'Indicator',
+  name: 'indicator',
   data () {
     return {
       average: 0,
@@ -47,4 +46,25 @@ h1,
 h2 {
   font-weight: normal;
 }
+.indicator {
+  width: 200px;
+  height: 100%;
+  background-color: red;
+
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: auto;
+}
+.average {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); 
+  text-align: center;
+  font-weight: bold;
+}
+
 </style>

@@ -6,6 +6,9 @@
       <b-nav is-nav-bar>
         <b-nav-item :to="{ name: 'Expenses'}">Expenses</b-nav-item>
         <b-nav-item :to="{ name: 'CreateExpense'}">Create</b-nav-item>
+        <b-nav-item :to="{ name: 'Barometer'}">
+          <indicator></indicator>
+        </b-nav-item>
       </b-nav>
 
       <!-- Right aligned nav items -->
@@ -26,8 +29,12 @@
 </template>
 
 <script>
+import Indicator from './indicator.vue'
 export default {
-  name: 'Navigation'
+  name: 'Navigation',
+  components: {
+    'indicator': Indicator
+  }
 }
 </script>
 
