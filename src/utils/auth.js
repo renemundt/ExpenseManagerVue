@@ -36,10 +36,9 @@ export function logout () {
 
 export function requireAuth (to, from, next) {
   if (!isLoggedIn()) {
-    next({
-      path: '/',
-      query: { redirect: to.fullPath }
-    })
+    next(
+      login()
+    )
   } else {
     next()
   }
