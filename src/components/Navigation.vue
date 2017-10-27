@@ -19,7 +19,7 @@
           <template slot="button-content">
             <em>User</em>
           </template>
-            <b-dropdown-item v-show="isLoggedIn()" @click="handleLogout()">Log out</b-dropdown-item>
+            <b-dropdown-item v-show="isLoggedIn()" @click="handleLogout()">Sign out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-nav>
 
