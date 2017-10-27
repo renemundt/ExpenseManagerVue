@@ -19,8 +19,8 @@
           <template slot="button-content">
             <em>User</em>
           </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Signout</b-dropdown-item>
+            <b-dropdown-item v-show="isLoggedIn()" @click="handleLogout()">Log out</b-dropdown-item>
+            <b-dropdown-item v-show="!isLoggedIn()" @click="handleLogin()">Log In</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-nav>
 
@@ -30,10 +30,23 @@
 
 <script>
 import Indicator from './indicator.vue'
+import { isLoggedIn, login, logout } from './../utils/auth'
 export default {
   name: 'Navigation',
   components: {
     'indicator': Indicator
+  },
+  methods: {
+    handleLogout () {
+      logout()
+    },
+    handleLogin () {
+      login()
+    },
+    isLoggedIn () {
+      return isLoggedIn()
+    }
+
   }
 }
 </script>

@@ -4,10 +4,12 @@ import Expenses from '@/components/Expenses'
 import ExpenseDetails from '@/components/ExpenseDetails'
 import CreateExpense from '@/components/CreateExpense'
 import Barometer from '@/components/Barometer'
+import Callback from '@/components/Callback'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/expenses',
@@ -28,6 +30,11 @@ export default new Router({
       path: '/barometer',
       name: 'Barometer',
       component: Barometer
+    },
+    {
+      path: '/callback',
+      name: 'Callback',
+      component: Callback
     }
   ]
 })
