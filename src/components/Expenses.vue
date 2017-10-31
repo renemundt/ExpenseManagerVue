@@ -32,6 +32,7 @@
 
 <script>
 import moment from 'moment'
+import { getAccessToken } from './../utils/auth'
 
 export default {
   name: 'Expenses',
@@ -55,7 +56,7 @@ export default {
       const startDate = `${sameDayLastMonth.format('YYYY')}-${sameDayLastMonth.format('MM')}-${sameDayLastMonth.daysInMonth()}T23:59:59.000Z`
       const endDate = `${presentDay.format('YYYY')}-${presentDay.format('MM')}-${presentDay.daysInMonth()}T23:59:59.000Z`
       const url = `http://localhost:8666/api/expenses?startDate=${startDate}&endDate=${endDate}`
-      this.$http.get(url).then(response => {
+      this.$http.get(url, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then(response => {
         this.expenses = this.sortExpenses(response.data)
       }, error => {
         console.log('error', error)
