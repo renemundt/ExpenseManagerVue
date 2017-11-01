@@ -12,12 +12,28 @@ export function getExpenses (callback) {
   const endDate = `${presentDay.format('YYYY')}-${presentDay.format('MM')}-${presentDay.daysInMonth()}T23:59:59.000Z`
   const url = `http://localhost:8666/api/expenses?startDate=${startDate}&endDate=${endDate}`
   Vue.http.get(url, options).then(response => {
-    // Vue.http.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` } }).then(response => {
-    // let result = sortExpenses(response.data)
     callback(null, response.data)
   }, error => {
     callback(error, null)
-    console.log('error', error)
+    console.log('error getting expenses', error)
+  })
+}
+
+export function getExpense (expenseId, callback) {
+  Vue.http.get(`http://localhost:8666/api/expenses/${expenseId}`, options).then(response => {
+    callback(null, response.data)
+  }, error => {
+    callback(error, null)
+    console.log('error getting expense', error)
+  })
+}
+
+export function updateExpense (expense, callback) {
+  Vue.http.put(`http://localhost:8666/api/expenses/${expense.id}`, expense, options).then(response => {
+    callback(null, response.data)
+  }, error => {
+    callback(error, null)
+    console.log('error updating expense', error)
   })
 }
 
@@ -25,14 +41,6 @@ export function deleteExpense (expenseId, callback) {
   Vue.http.delete(`http://localhost:8666/api/expenses/${expenseId}`, options).then(response => {
     callback(null, 'success')
   }, error => {
-    callback(error, 'failure')
+    callback(error, 'error deleting expense')
   })
 }
-
-// function sortExpenses (expenses) {
-//   return expenses.sort(function (a, b) {
-//     a.timeOfPurchase = new Date(a.timeOfPurchase)
-//     b.timeOfPurchase = new Date(b.timeOfPurchase)
-//     return a.timeOfPurchase > b.timeOfPurchase ? -1 : a.timeOfPurchase < b.timeOfPurchase ? 1 : 0
-//   })
-// }
