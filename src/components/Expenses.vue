@@ -55,7 +55,7 @@ export default {
     getExpenses: function () {
       getExpenses((err, result) => {
         if (err) this.showError = true
-        else this.expenses = result
+        else this.expenses = this.sortExpenses(result)
       })
     },
     deleteExpense: function (expenseId) {
@@ -74,7 +74,15 @@ export default {
     cancel: function () {
       this.activeButtonIndex = null
       this.deleteCoZnfirm = false
+    },
+    sortExpenses: function (expenses) {
+      return expenses.sort(function (a, b) {
+        a.timeOfPurchase = new Date(a.timeOfPurchase)
+        b.timeOfPurchase = new Date(b.timeOfPurchase)
+        return a.timeOfPurchase > b.timeOfPurchase ? -1 : a.timeOfPurchase < b.timeOfPurchase ? 1 : 0
+      })
     }
+
   }
 }
 </script>

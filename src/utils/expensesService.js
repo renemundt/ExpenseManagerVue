@@ -13,8 +13,8 @@ export function getExpenses (callback) {
   const url = `http://localhost:8666/api/expenses?startDate=${startDate}&endDate=${endDate}`
   Vue.http.get(url, options).then(response => {
     // Vue.http.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` } }).then(response => {
-    let result = sortExpenses(response.data)
-    callback(null, result)
+    // let result = sortExpenses(response.data)
+    callback(null, response.data)
   }, error => {
     callback(error, null)
     console.log('error', error)
@@ -29,10 +29,10 @@ export function deleteExpense (expenseId, callback) {
   })
 }
 
-function sortExpenses (expenses) {
-  return expenses.sort(function (a, b) {
-    a.timeOfPurchase = new Date(a.timeOfPurchase)
-    b.timeOfPurchase = new Date(b.timeOfPurchase)
-    return a.timeOfPurchase > b.timeOfPurchase ? -1 : a.timeOfPurchase < b.timeOfPurchase ? 1 : 0
-  })
-}
+// function sortExpenses (expenses) {
+//   return expenses.sort(function (a, b) {
+//     a.timeOfPurchase = new Date(a.timeOfPurchase)
+//     b.timeOfPurchase = new Date(b.timeOfPurchase)
+//     return a.timeOfPurchase > b.timeOfPurchase ? -1 : a.timeOfPurchase < b.timeOfPurchase ? 1 : 0
+//   })
+// }
