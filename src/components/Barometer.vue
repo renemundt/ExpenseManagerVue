@@ -24,6 +24,7 @@
 
 <script>
 import moment from 'moment'
+import * as expensesService from './../utils/expensesService'
 
 export default {
   name: 'Barometer',
@@ -41,17 +42,13 @@ export default {
       return moment(input).format('DD. MMMM YYYY')
     },
     getExpenses: function () {
-      const presentDay = moment()
-      const sameDayLastMonth = moment().subtract(1, 'months')
-      const startDate = `${sameDayLastMonth.format('YYYY')}-${sameDayLastMonth.format('MM')}-${sameDayLastMonth.daysInMonth()}T23:59:59.000Z`
-      const endDate = `${presentDay.format('YYYY')}-${presentDay.format('MM')}-${presentDay.daysInMonth()}T23:59:59.000Z`
-      const url = `http://localhost:8666/api/expenses?startDate=${startDate}&endDate=${endDate}`
-      this.$http.get(url).then(response => {
-        let sortedExpenses = this.sortExpenses(response.data)
-        let barometerExpenses = this.mapReduce(sortedExpenses)
-        this.barometerExpenses = this.sortExpenses(barometerExpenses)
-      }, error => {
-        console.log('error', error)
+      expensesService.getExpenses((err, result) => {
+        if (err) console.error(err)
+        else {
+          let sortedExpenses = this.sortExpenses(result)
+          let barometerExpenses = this.mapReduce(sortedExpenses)
+          this.barometerExpenses = this.sortExpenses(barometerExpenses)
+        }
       })
     },
     mapReduce: function (expenses) {
