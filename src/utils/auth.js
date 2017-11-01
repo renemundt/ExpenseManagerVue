@@ -5,7 +5,6 @@ const ID_TOKEN_KEY = 'id_token'
 const ACCESS_TOKEN_KEY = 'access_token'
 
 const CLIENT_ID = 'z3ezLq6XG2agekCwBHBkZMCxWy6cBw2O'
-// const CLIENT_ID = 'O5vpISpHYiFmdirg3uh7vYXk92D1OWqx'
 const CLIENT_DOMAIN = 'renemundt.eu.auth0.com'
 const REDIRECT = 'http://localhost:8081/callback'
 const SCOPE = 'openid profile full_access'
