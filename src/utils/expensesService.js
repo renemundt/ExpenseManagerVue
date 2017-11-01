@@ -19,6 +19,15 @@ export function getExpenses (callback) {
   })
 }
 
+export function createExpense (expense, callback) {
+  Vue.http.post(`http://localhost:8666/api/expenses/`, expense, options).then(response => {
+    callback(null, response.data)
+  }, error => {
+    callback(error, null)
+    console.log('error creating expense', error)
+  })
+}
+
 export function getExpense (expenseId, callback) {
   Vue.http.get(`http://localhost:8666/api/expenses/${expenseId}`, options).then(response => {
     callback(null, response.data)

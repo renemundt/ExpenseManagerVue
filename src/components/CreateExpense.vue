@@ -1,25 +1,24 @@
 <template>
-  <div>
-    <form v-if="expense">
-      <div class="form-group">
-        <label for="amount">Amount</label>
-        <input v-model="expense.amount" type="number" class="form-control" id="amount" placeholder="Enter amount">
-      </div>
-      <div class="form-group">
-        <label for="timeOfPurchase">Time of purchase</label>
-        <input v-model="expense.timeOfPurchase" type="date" class="form-control" id="timeOfPurchase" placeholder="Time of purchase">
-      </div>
-      <div class="form-group">
-        <label for="store">Store</label>
-        <input v-model="expense.store" type="text" class="store">
-      </div>
-      <button v-on:click="createExpense()" type="submit" class="btn btn-primary">Save</button>
-    </form>
+  <div v-if="expense">
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input v-model="expense.amount" type="number" class="form-control" id="amount" placeholder="Enter amount">
+    </div>
+    <div class="form-group">
+      <label for="timeOfPurchase">Time of purchase</label>
+      <input v-model="expense.timeOfPurchase" type="date" class="form-control" id="timeOfPurchase" placeholder="Time of purchase">
+    </div>
+    <div class="form-group">
+      <label for="store">Store</label>
+      <input v-model="expense.store" type="text" class="store">
+    </div>
+    <button v-on:click="createExpense()" type="submit" class="btn btn-primary">Save</button>
   </div>
 </template>
 
 <script>
 import moment from 'moment'
+import * as expensesService from './../utils/expensesService'
 
 export default {
   name: 'CreateExpense',
@@ -39,10 +38,11 @@ export default {
   },
   methods: {
     createExpense () {
-      this.$http.post(`http://localhost:8666/api/expenses/`, this.expense).then(response => {
-        this.$router.push('/expenses')
-      }, error => {
-        console.log('error', error)
+      expensesService.createExpense(this.expense, (err, result) => {
+        if (err) console.error(err)
+        else {
+          this.$router.push('/expenses')
+        }
       })
     }
   }
