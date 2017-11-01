@@ -33,7 +33,7 @@
 
 <script>
 import moment from 'moment'
-import { getExpenses, deleteExpense } from './../utils/expensesService'
+import * as expensesService from './../utils/expensesService'
 
 export default {
   name: 'Expenses',
@@ -53,13 +53,13 @@ export default {
       return moment(input).format('DD. MMMM YYYY')
     },
     getExpenses: function () {
-      getExpenses((err, result) => {
+      expensesService.getExpenses((err, result) => {
         if (err) this.showError = true
         else this.expenses = this.sortExpenses(result)
       })
     },
     deleteExpense: function (expenseId) {
-      deleteExpense(expenseId, (err, result) => {
+      expensesService.deleteExpense(expenseId, (err, result) => {
         if (err) this.showError = true
         else {
           this.activeButtonIndex = null

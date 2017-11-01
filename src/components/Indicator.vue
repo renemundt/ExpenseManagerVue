@@ -6,6 +6,7 @@
 
 <script>
 import moment from 'moment'
+import * as expensesService from './../utils/expensesService'
 
 export default {
   name: 'indicator',
@@ -16,16 +17,18 @@ export default {
     }
   },
   created: function () {
-    let presentDay = moment()
-    let sameDayLastMonth = moment().subtract(1, 'months')
-    let startDate = `${sameDayLastMonth.format('YYYY')}-${sameDayLastMonth.format('MM')}-${sameDayLastMonth.daysInMonth()}T23:59:59.000Z`
-    let endDate = `${presentDay.format('YYYY')}-${presentDay.format('MM')}-${presentDay.daysInMonth()}T23:59:59.000Z`
-    let url = `http://localhost:8666/api/expenses?startDate=${startDate}&endDate=${endDate}`
-    this.$http.get(url).then(response => {
-      let expenses = response.data
-      if (expenses.length === 0) {
+    expensesService.getExpenses((err, result) => {
+      if (err) this.showError = true
+      else {
+        this.messureTemperature(result)
+      }
+    })
+  },
+  methods: {
+    messureTemperature: function (expenses) {
+      if (expenses === null) {
         this.average = 0
-        this.temperature = 'NORMAL'
+        this.temperature = 'temperature-unknown'
         return
       }
       let total = expenses.map(expense => expense.amount).reduce((previous, current) => { return previous + current })
@@ -33,9 +36,7 @@ export default {
       if (this.average < 300) { this.temperature = 'temperature-normal' }
       if (this.average > 300 && this.average < 400) { this.temperature = 'temperature-middle' }
       if (this.average > 400) { this.temperature = 'temperature-high' }
-    }, error => {
-      console.log('error', error)
-    })
+    }
   }
 }
 </script>
@@ -51,7 +52,7 @@ h2 {
   height: 100%;
 
   position: absolute;
-  top:0;
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
@@ -61,7 +62,7 @@ h2 {
 .average {
   position: relative;
   top: 50%;
-  transform: translateY(-50%); 
+  transform: translateY(-50%);
   text-align: center;
   font-weight: bold;
 }
@@ -74,5 +75,4 @@ h2 {
 .temperature-high {
   background-color: red;
 }
-
 </style>
