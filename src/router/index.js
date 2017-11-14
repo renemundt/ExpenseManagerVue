@@ -5,47 +5,66 @@ import ExpenseDetails from '@/components/ExpenseDetails'
 import CreateExpense from '@/components/CreateExpense'
 import Barometer from '@/components/Barometer'
 import Callback from '@/components/Callback'
-import { requireAuth } from '../utils/auth'
+
+import AuthService from '../utils/auth2'
+const auth = new AuthService()
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
+      path: '/callback',
+      name: 'Callback',
+      component: Callback,
+      meta: { requiresAuth: false },
+      beforeEnter: (to, from, next) => {
+        auth.setSession()
+      }
+    },
+    {
       path: '/expenses',
       name: 'Expenses',
-      beforeEnter: requireAuth,
-      component: Expenses
+      component: Expenses,
+      meta: { requiresAuth: true }
     },
     {
       path: '/expenses/:expenseId',
       name: 'ExpenseDetails',
-      beforeEnter: requireAuth,
-      component: ExpenseDetails
+      component: ExpenseDetails,
+      meta: { requiresAuth: true }
     },
     {
       path: '/create-expense',
       name: 'CreateExpense',
-      beforeEnter: requireAuth,
-      component: CreateExpense
+      component: CreateExpense,
+      meta: { requiresAuth: true }
     },
     {
       path: '/barometer',
       name: 'Barometer',
-      beforeEnter: requireAuth,
-      component: Barometer
-    },
-    {
-      path: '/callback',
-      name: 'Callback',
-      component: Callback
+      component: Barometer,
+      meta: { requiresAuth: true }
     },
     {
       path: '/',
       name: 'Barometer',
-      beforeEnter: requireAuth,
-      component: Barometer
+      component: Barometer,
+      meta: { requiresAuth: true }
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!auth.isAuthenticated()) {
+      auth.login()
+      next(false)
+    } else {
+      next()
+    }
+  }
+})
+
+export default router

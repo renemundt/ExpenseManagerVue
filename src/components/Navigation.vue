@@ -1,8 +1,6 @@
 <template>
   <b-navbar toggleable="md" type="dark" variant="dark">
-
     <b-collapse is-nav id="nav_collapse">
-
       <b-nav is-nav-bar>
         <b-nav-item :to="{ name: 'Expenses'}">Expenses</b-nav-item>
         <b-nav-item :to="{ name: 'CreateExpense'}">Create</b-nav-item>
@@ -19,7 +17,7 @@
           <template slot="button-content">
             <em>User</em>
           </template>
-            <b-dropdown-item v-show="isLoggedIn()" @click="handleLogout()">Sign out</b-dropdown-item>
+            <b-dropdown-item v-show="authService.authenticated" @click="logout()">Sign out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-nav>
 
@@ -29,20 +27,17 @@
 
 <script>
 import Indicator from './indicator.vue'
-import { isLoggedIn, logout } from './../utils/auth'
+
 export default {
   name: 'Navigation',
+  props: ['authService'],
   components: {
     'indicator': Indicator
   },
-  methods: {
-    handleLogout () {
-      logout()
-    },
-    isLoggedIn () {
-      return isLoggedIn()
+  computed: {
+    logout: function () {
+      this.authService.logout()
     }
-
   }
 }
 </script>

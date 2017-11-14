@@ -1,8 +1,10 @@
 import moment from 'moment'
-import { getAccessToken } from './auth'
 import Vue from 'vue'
 
-const options = { headers: { Authorization: `Bearer ${getAccessToken()}` } }
+import AuthService from './../utils/auth2'
+const auth = new AuthService()
+
+const options = { headers: { Authorization: `Bearer ${auth.getAccessToken()}` } }
 const apiUrl = process.env.API_URL
 
 export function getExpenses (callback) {
