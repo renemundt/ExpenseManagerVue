@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <navigation :authService="authService" v-if="authenticated"></navigation>   
+    <navigation :authService="authService"></navigation>   
+    <!-- <navigation :authService="authService" v-if="authenticated"></navigation>    -->
     <main role="main">
       <router-view/>
     </main>

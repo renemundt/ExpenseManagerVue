@@ -49,7 +49,7 @@ const router = new Router({
     },
     {
       path: '/',
-      name: 'Barometer',
+      name: 'Root',
       component: Barometer,
       meta: { requiresAuth: true }
     }

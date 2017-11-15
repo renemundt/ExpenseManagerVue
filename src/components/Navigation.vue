@@ -1,16 +1,17 @@
 <template>
   <b-navbar toggleable="md" type="dark" variant="dark">
+    <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-collapse is-nav id="nav_collapse">
-      <b-nav is-nav-bar>
+      <b-navbar-nav>
         <b-nav-item :to="{ name: 'Expenses'}">Expenses</b-nav-item>
         <b-nav-item :to="{ name: 'CreateExpense'}">Create</b-nav-item>
         <b-nav-item :to="{ name: 'Barometer'}">
           <indicator></indicator>
         </b-nav-item>
-      </b-nav>
+      </b-navbar-nav>
 
       <!-- Right aligned nav items -->
-      <b-nav is-nav-bar class="ml-auto">
+      <b-navbar-nav class="ml-auto">
 
         <b-nav-item-dropdown right>
           <!-- Using button-content slot -->
@@ -19,10 +20,11 @@
           </template>
             <b-dropdown-item v-show="authService.authenticated" @click="logout()">Sign out</b-dropdown-item>
         </b-nav-item-dropdown>
-      </b-nav>
+      </b-navbar-nav>
 
     </b-collapse>
   </b-navbar>
+
 </template>
 
 <script>
@@ -34,7 +36,7 @@ export default {
   components: {
     'indicator': Indicator
   },
-  computed: {
+  methods: {
     logout: function () {
       this.authService.logout()
     }

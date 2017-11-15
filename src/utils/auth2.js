@@ -7,7 +7,7 @@ export default class AuthService {
   admin = this.isAdmin()
   authNotifier = new EventEmitter()
   userProfile;
-  router = new Router()
+  router = new Router({mode: 'history'})
 
   constructor () {
     // Add callback Lock's `authenticated` event
@@ -85,7 +85,7 @@ export default class AuthService {
     this.userProfile = null
     this.authNotifier.emit('authChange', false)
     // navigate to the home route
-    this.router.replace('/')
+    this.router.push('')
   }
 
   isAuthenticated () {
