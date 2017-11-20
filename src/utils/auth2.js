@@ -1,6 +1,6 @@
 import Auth0Lock from 'auth0-lock'
 import EventEmitter from 'EventEmitter'
-import Router from 'vue-router'
+import Router from 'vue-router' // TODO: Would rather import for vue or ./../router
 
 export default class AuthService {
   authenticated = this.isAuthenticated()
