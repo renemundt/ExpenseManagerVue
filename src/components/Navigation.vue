@@ -16,7 +16,8 @@
         <b-nav-item-dropdown right>
           <!-- Using button-content slot -->
           <template slot="button-content">
-            <em>User</em>
+            <em>{{ userName }}</em>
+            <!-- <em>User</em> -->
           </template>
             <b-dropdown-item v-show="authService.authenticated" @click="logout()">Sign out</b-dropdown-item>
         </b-nav-item-dropdown>
@@ -33,12 +34,32 @@ import Indicator from './indicator.vue'
 export default {
   name: 'Navigation',
   props: ['authService'],
+  data () {
+    return {
+      userName: ''
+    }
+  },
+  created: function () {
+    this.userName = this.setProfileName
+  },
   components: {
     'indicator': Indicator
   },
   methods: {
     logout: function () {
       this.authService.logout()
+    }
+  },
+  computed: {
+    setProfileName: function () {
+      this.authService.getProfile((err, result) => {
+        if (err) console.log('error', err)
+        else {
+          console.log(result.name)
+          this.userName = result.name
+          return result.name
+        }
+      })
     }
   }
 }
