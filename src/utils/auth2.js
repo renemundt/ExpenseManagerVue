@@ -59,10 +59,10 @@ export default class AuthService {
 
   getAccessToken () {
     const accessToken = localStorage.getItem('access_token')
-    // if (!accessToken) {
+    if (!accessToken) {
     //   throw new Error('No access token found')
-    // }
-    console.error('No access token found')
+      console.error('No access token found')
+    }
     return accessToken
   }
 
