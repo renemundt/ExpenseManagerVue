@@ -108,11 +108,8 @@ export function getProfile (cb) {
 
   if (userProfile) { cb(null, userProfile) }
 
-  // const self = this
   auth.client.userInfo(accessToken, (err, profile) => {
     if (profile) {
-      console.log('profile', profile)
-      // self.userProfile = profile
       userProfile = profile
     }
     cb(err, profile)
