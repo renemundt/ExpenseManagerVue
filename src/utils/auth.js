@@ -10,6 +10,8 @@ const REDIRECT = process.env.AUTH.REDIRECT
 const SCOPE = process.env.AUTH.SCOPE
 const AUDIENCE = process.env.AUTH.AUDIENCE
 
+let userProfile
+
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
   domain: CLIENT_DOMAIN
@@ -96,4 +98,23 @@ function getTokenExpirationDate (encodedToken) {
 function isTokenExpired (token) {
   const expirationDate = getTokenExpirationDate(token)
   return expirationDate < new Date()
+}
+
+export function getProfile (cb) {
+  const accessToken = localStorage.getItem('access_token')
+  if (!accessToken) {
+    throw new Error('Access token must exist to fetch profile')
+  }
+
+  if (userProfile) { cb(null, userProfile) }
+
+  // const self = this
+  auth.client.userInfo(accessToken, (err, profile) => {
+    if (profile) {
+      console.log('profile', profile)
+      // self.userProfile = profile
+      userProfile = profile
+    }
+    cb(err, profile)
+  })
 }

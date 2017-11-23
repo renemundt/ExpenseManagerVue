@@ -19,7 +19,7 @@
             <em>{{ userName }}</em>
             <!-- <em>User</em> -->
           </template>
-            <b-dropdown-item v-show="authService.authenticated" @click="logout()">Sign out</b-dropdown-item>
+            <b-dropdown-item v-show="isLoggedIn" @click="handleLogout()">Sign out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
 
@@ -30,36 +30,36 @@
 
 <script>
 import Indicator from './indicator.vue'
+import { isLoggedIn, login, logout, getProfile } from './../utils/auth'
 
 export default {
   name: 'Navigation',
-  props: ['authService'],
   data () {
     return {
       userName: ''
     }
   },
-  created: function () {
-    this.userName = this.setProfileName
+  mounted: function () {
+    getProfile((err, result) => {
+      if (err) {
+        console.log('error', err)
+      } else {
+        this.userName = result.name
+      }
+    })
   },
   components: {
     'indicator': Indicator
   },
   methods: {
-    logout: function () {
-      this.authService.logout()
-    }
-  },
-  computed: {
-    setProfileName: function () {
-      this.authService.getProfile((err, result) => {
-        if (err) console.log('error', err)
-        else {
-          console.log(result.name)
-          this.userName = result.name
-          return result.name
-        }
-      })
+    handleLogout: function () {
+      logout()
+    },
+    handleLogin: function () {
+      login()
+    },
+    isLoggedIn: function () {
+      return isLoggedIn()
     }
   }
 }

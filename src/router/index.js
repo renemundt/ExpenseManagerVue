@@ -6,22 +6,17 @@ import CreateExpense from '@/components/CreateExpense'
 import Barometer from '@/components/Barometer'
 import Callback from '@/components/Callback'
 
-import AuthService from '../utils/auth2'
-const auth = new AuthService()
+import { isLoggedIn, login } from '../utils/auth'
 
 Vue.use(Router)
 
-const router = new Router({
+let router = new Router({
   mode: 'history',
   routes: [
     {
       path: '/callback',
       name: 'Callback',
-      component: Callback,
-      meta: { requiresAuth: false },
-      beforeEnter: (to, from, next) => {
-        auth.setSession()
-      }
+      component: Callback
     },
     {
       path: '/expenses',
@@ -58,13 +53,14 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!auth.isAuthenticated()) {
-      auth.login()
+    if (!isLoggedIn()) {
+      login()
       next(false)
     } else {
       next()
     }
   }
+  next()
 })
 
 export default router
