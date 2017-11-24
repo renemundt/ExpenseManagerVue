@@ -15,8 +15,8 @@
       <tbody>
         <tr v-for="(expense, index) in expenses" :key="expense.id">
           <td><router-link :to="{ name: 'ExpenseDetails', params: { expenseId: expense.id }}">{{longDate(expense.timeOfPurchase)}}</router-link></td>
-          <td>{{expense.store}}</td>
-          <td>{{expense.amount}}</td>
+          <td>{{expense.store }}</td>
+          <td>{{expense.amount | currency}}</td>
           <td>{{expense.profile.givenName}}</td>
           <td>
             <div class="fixed-buttons-width">

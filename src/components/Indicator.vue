@@ -1,6 +1,6 @@
 <template>
   <div class="indicator" v-bind:class="[temperature]">
-    <div class="average">{{average}}</div>
+    <div class="average">{{average | currency }}</div>
   </div>
 </template>
 

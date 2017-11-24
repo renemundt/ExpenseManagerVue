@@ -13,9 +13,9 @@
       <tbody>
         <tr v-for="(expense, index) in barometerExpenses" :key="expense.timeOfPurchase.toString()">
           <td>{{longDate(expense.timeOfPurchase)}}</td>
-          <td>{{expense.totalAmount}}</td>
-          <td>{{expense.monthToDayAmount}}</td>
-          <td>{{expense.average}}</td>
+          <td>{{expense.totalAmount | currency}}</td>
+          <td>{{expense.monthToDayAmount | currency}}</td>
+          <td>{{expense.average | currency}}</td>
         </tr>
       </tbody>
     </table>

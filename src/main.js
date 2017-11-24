@@ -15,6 +15,11 @@ Vue.use(VueResource)
 
 Vue.config.productionTip = false
 
+Vue.filter('currency', function (value) {
+  if (!value) return ''
+  return value.toFixed(2)
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
