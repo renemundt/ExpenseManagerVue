@@ -5,17 +5,23 @@
       <thead class="thead-inverse">
         <tr>
           <th scope="col">Date</th>
-          <th scope="col">Amount</th>
-          <th scope="col">Total</th>
-          <th scope="col">Average</th>
+          <th scope="col" class="text-right">Amount</th>
+          <th scope="col"></th>
+          <th scope="col" class="text-right">Total</th>
+          <th scope="col"></th>
+          <th scope="col" class="text-right">Average</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(expense, index) in barometerExpenses" :key="expense.timeOfPurchase.toString()">
           <td>{{longDate(expense.timeOfPurchase)}}</td>
-          <td>{{expense.totalAmount | currency}}</td>
-          <td>{{expense.monthToDayAmount | currency}}</td>
-          <td>{{expense.average | currency}}</td>
+          <td class="text-right">{{expense.totalAmount | currency}}</td>
+          <td></td>
+          <td class="text-right">{{expense.monthToDayAmount | currency}}</td>
+          <td></td>
+          <td class="text-right">{{expense.average | currency}}</td>
+          <td></td>
         </tr>
       </tbody>
     </table>

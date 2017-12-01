@@ -7,7 +7,8 @@
         <tr>
           <th scope="col">Date</th>
           <th scope="col">Store</th>
-          <th scope="col">Amount</th>
+          <th scope="col" class="text-right">Amount</th>
+          <th scope="col"> </th>
           <th scope="col">User</th>
           <th scope="col">Action</th>
         </tr>
@@ -16,7 +17,8 @@
         <tr v-for="(expense, index) in expenses" :key="expense.id">
           <td><router-link :to="{ name: 'ExpenseDetails', params: { expenseId: expense.id }}">{{longDate(expense.timeOfPurchase)}}</router-link></td>
           <td>{{expense.store }}</td>
-          <td>{{expense.amount | currency}}</td>
+          <td class="text-right">{{expense.amount | currency}}</td>
+          <td></td>
           <td>{{expense.profile.givenName}}</td>
           <td>
             <div class="fixed-buttons-width">
