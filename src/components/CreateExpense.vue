@@ -19,6 +19,7 @@
 <script>
 import moment from 'moment'
 import * as expensesService from './../utils/expensesService'
+import { getProfile } from './../utils/auth'
 
 export default {
   name: 'CreateExpense',
@@ -28,13 +29,18 @@ export default {
     }
   },
   created: function () {
-    this.expense = {
-      timeOfPurchase: moment(new Date()).format('YYYY-MM-DD'),
-      profile: {
-        id: 'test-profil-id',
-        givenName: 'Leo Lummerkrog'
+    getProfile((err, userProfile) => {
+      if (err) console.error(err)
+      else {
+        this.expense = {
+          timeOfPurchase: moment(new Date()).format('YYYY-MM-DD'),
+          profile: {
+            id: userProfile.sub,
+            givenName: userProfile.name
+          }
+        }
       }
-    }
+    })
   },
   methods: {
     createExpense () {
