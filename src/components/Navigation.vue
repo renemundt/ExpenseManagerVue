@@ -6,7 +6,7 @@
         <b-nav-item :to="{ name: 'Expenses'}">Expenses</b-nav-item>
         <b-nav-item :to="{ name: 'CreateExpense'}">Create</b-nav-item>
         <b-nav-item :to="{ name: 'Barometer'}">
-          <indicator></indicator>
+          <indicator v-if="isLoggedIn"></indicator>
         </b-nav-item>
       </b-navbar-nav>
 
@@ -40,13 +40,15 @@ export default {
     }
   },
   mounted: function () {
-    getProfile((err, result) => {
-      if (err) {
-        console.log('error', err)
-      } else {
-        this.userName = result.name
-      }
-    })
+    if (isLoggedIn()) {
+      getProfile((err, result) => {
+        if (err) {
+          console.log('error', err)
+        } else {
+          this.userName = result.name
+        }
+      })
+    }
   },
   components: {
     'indicator': Indicator
