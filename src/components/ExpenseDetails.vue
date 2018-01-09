@@ -43,12 +43,9 @@ export default {
       })
     },
     enableEdit () {
-      console.log('??')
       this.editMode = true
     },
     editExpense () {
-      // let expenseId = this.$route.params.expenseId
-      // this.$http.put(`http://localhost:8666/api/expenses/${expenseId}`, this.expense).then(response => {
       expensesService.updateExpense(this.expense, (err, result) => {
         if (err) console.error(err)
         else {
