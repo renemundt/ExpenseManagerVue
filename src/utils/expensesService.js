@@ -2,6 +2,7 @@ import moment from 'moment'
 import Vue from 'vue'
 
 import { getAccessToken } from './../utils/auth'
+import { store } from './../utils/store'
 
 const options = { headers: { Authorization: `Bearer ${getAccessToken()}` } }
 const apiUrl = process.env.API_URL
@@ -13,6 +14,9 @@ export function getExpenses (callback) {
   const endDate = `${presentDay.format('YYYY')}-${presentDay.format('MM')}-${presentDay.daysInMonth()}T23:59:59.000Z`
   const url = `${apiUrl}/expenses?startDate=${startDate}&endDate=${endDate}`
   Vue.http.get(url, options).then(response => {
+    const total = response.data.map(expense => expense.amount).reduce((previous, current) => { return previous + current })
+    const average = total / +moment().toDate().getDate()
+    store.commit('setAverage', average)
     callback(null, response.data)
   }, error => {
     callback(error, null)

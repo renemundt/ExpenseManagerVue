@@ -61,7 +61,6 @@ export default {
           this.expenses = this.sortExpenses(result)
           let total = result.map(expense => expense.amount).reduce((previous, current) => { return previous + current })
           this.average = total / +moment().toDate().getDate()
-          this.$store.commit('setAverage', this.average)
         }
       })
     },
