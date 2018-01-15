@@ -17,7 +17,8 @@ Vue.use(VueResource)
 Vue.config.productionTip = false
 
 Vue.filter('currency', function (value) {
-  if (!value) return ''
+  console.log(typeof value)
+  if (typeof value !== 'number') return ''
   return value.toFixed(2)
 })
 
