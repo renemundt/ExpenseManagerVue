@@ -17,7 +17,9 @@ export function getExpenses (callback) {
     const total = response.data.map(expense => expense.amount).reduce((previous, current) => { return previous + current })
     const average = total / +moment().toDate().getDate()
     store.commit('setAverage', average)
-    callback(null, response.data)
+    expandWithEmptySlots(response.data, (result) => {
+      callback(null, result)
+    })
   }, error => {
     callback(error, null)
     console.log('error getting expenses', error)
@@ -57,4 +59,39 @@ export function deleteExpense (expenseId, callback) {
   }, error => {
     callback(error, 'error deleting expense')
   })
+}
+
+function expandWithEmptySlots (expenses, callback) {
+  const presentDateInMonth = moment()
+
+  let expensesWithEmptySlots = fillArrayWithDatesAndEmptyExpenses(presentDateInMonth)
+
+  let newExpenseArray = []
+
+  expensesWithEmptySlots.forEach(expense => {
+    let fullExpenses = expenses.filter(y => moment(y.timeOfPurchase).format('YYYY-MM-DD') === moment(expense.timeOfPurchase).format('YYYY-MM-DD'))
+    if (fullExpenses.length === 0) {
+      newExpenseArray.push(expense)
+    } else {
+      newExpenseArray.splice(newExpenseArray.length, 0, ...fullExpenses)
+    }
+  })
+
+  callback(newExpenseArray)
+
+  function fillArrayWithDatesAndEmptyExpenses (presentDate) {
+    var arr = Array.apply(null, Array(presentDate.date()))
+    return arr.map((x, i) => {
+      let expense = {
+        id: null,
+        amount: 0,
+        store: null,
+        timeOfPurchase: new Date(presentDate.year(), presentDate.month(), i + 1),
+        created: null,
+        updated: null,
+        profile: null
+      }
+      return expense
+    })
+  }
 }

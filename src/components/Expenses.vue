@@ -19,7 +19,7 @@
           <td>{{expense.store }}</td>
           <td class="text-right">{{expense.amount | currency}}</td>
           <td></td>
-          <td>{{expense.profile.givenName}}</td>
+          <td>{{expense.profile ? expense.profile.givenName : '-'}}</td>
           <td>
             <div class="fixed-buttons-width">
               <button v-if="activeButtonIndex == null" type="button" class="btn btn-danger btn-sm" v-on:click="alert(index)">Delete</button>
