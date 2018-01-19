@@ -16,7 +16,7 @@
       <tbody>
         <tr v-for="(expense, index) in barometerExpenses" :key="expense.timeOfPurchase.toString()">
           <td>{{longDate(expense.timeOfPurchase)}}</td>
-          <td class="text-right">{{expense.totalAmount | currency}}</td>
+          <td class="text-right">{{expense.totalAmountPerDay | currency}}</td>
           <td></td>
           <td class="text-right">{{expense.monthToDayAmount | currency}}</td>
           <td></td>
@@ -51,39 +51,31 @@ export default {
       expensesService.getExpenses((err, result) => {
         if (err) console.error(err)
         else {
-          let sortedExpenses = this.sortExpenses(result)
-          let barometerExpenses = this.mapReduce(sortedExpenses)
-          this.barometerExpenses = this.sortExpenses(barometerExpenses)
+          this.barometerExpenses = this.sortExpenses(this.groupByTimeOfPurchaseAndCalcTotals(result))
         }
       })
     },
-    mapReduce: function (expenses) {
-      let monthToDayAmountCnt = 0
-      const result = expenses.reduce(function (res, currentValue) {
-        const tempDate = moment(currentValue.created).format('YYYY-MM-DD')
-        if (res.indexOf(tempDate) === -1) {
-          res.push(tempDate)
+    groupByTimeOfPurchaseAndCalcTotals: function (expenses) {
+      let monthToDayAmount = 0
+      const result = expenses.reduce(function (res, currentExpense) {
+        let existingExpense = res.find(e => moment(e.timeOfPurchase).date() === moment(currentExpense.timeOfPurchase).date())
+        monthToDayAmount += currentExpense.amount
+        if (!existingExpense) {
+          currentExpense.monthToDayAmount = monthToDayAmount
+          res.push(currentExpense)
+        } else {
+          existingExpense.monthToDayAmount = monthToDayAmount
+          existingExpense.amount += currentExpense.amount
         }
         return res
-      }, []).map(function (timeOfPurchase, index) {
-        const tAmount = this.getTotalAmountPerDay(expenses, timeOfPurchase)
-        monthToDayAmountCnt += tAmount
+      }, []).map(function (expense, index) {
         return {
-          timeOfPurchase: moment(timeOfPurchase).toDate(),
-          totalAmount: tAmount,
-          monthToDayAmount: monthToDayAmountCnt,
-          average: monthToDayAmountCnt / (moment(timeOfPurchase).toDate().getDate())
+          timeOfPurchase: moment(expense.timeOfPurchase).toDate(),
+          totalAmountPerDay: expense.amount,
+          monthToDayAmount: expense.monthToDayAmount,
+          average: expense.monthToDayAmount / (moment(expense.timeOfPurchase).date())
         }
       }, this)
-      return result
-    },
-    getTotalAmountPerDay: function (expenses, timeOfPurchase) {
-      const result = expenses.filter(function (expense) {
-        return moment(expense.timeOfPurchase).format('YYYY-MM-DD') === timeOfPurchase
-      }).map(function (expense) { return expense.amount })
-        .reduce((previous, current) => {
-          return previous + current
-        })
       return result
     },
     sortExpenses: function (expenses) {
