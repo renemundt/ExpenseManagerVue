@@ -1,16 +1,19 @@
 <template>
-  <div v-if="expense">
+  <div class="container" v-if="expense">
     <div class="form-group">
       <label for="amount">Amount</label>
-      <input v-model="expense.amount" type="number" class="form-control" id="amount" placeholder="Enter amount" :disabled="!editMode">
+      <b-form-input v-model="expense.amount" type="number" :state="!$v.expense.amount.$invalid" class="form-control" placeholder="Enter amount" :disabled="!editMode"></b-form-input>
+      <span class="invalid-feedback" v-if="$v.expense.amount.$invalid">Amount is mandatory.</span>
     </div>
     <div class="form-group">
       <label for="timeOfPurchase">Time of purchase</label>
-      <input v-model="expense.timeOfPurchase" type="date" class="form-control" id="timeOfPurchase" placeholder="Time of purchase" :disabled="!editMode">
+      <b-form-input v-model="expense.timeOfPurchase" type="date" :state="!$v.expense.timeOfPurchase.$invalid" class="form-control" placeholder="Time of purchase" :disabled="!editMode"></b-form-input>
+      <span class="invalid-feedback" v-if="$v.expense.timeOfPurchase.$invalid">Time of purchase is mandatory.</span>
     </div>
     <div class="form-group">
       <label for="store">Store</label>
-      <input v-model="expense.store" type="text" class="store" :disabled="!editMode">
+      <b-form-input v-model="expense.store" type="text" :state="!$v.expense.store.$invalid" class="store" :disabled="!editMode"></b-form-input>
+      <span class="invalid-feedback" v-if="$v.expense.store.$invalid">Store is mandatory.</span>
     </div>
     <button v-if="!editMode" v-on:click="enableEdit()" class="btn btn-info">Edit</button>
     <button v-else v-on:click="editExpense()" type="submit" class="btn btn-primary">Save</button>
@@ -20,6 +23,7 @@
 <script>
 import moment from 'moment'
 import * as expensesService from './../utils/expensesService'
+import { required, minValue } from 'vuelidate/lib/validators'
 
 export default {
   name: 'ExpenseDetails',
@@ -27,6 +31,22 @@ export default {
     return {
       expense: null,
       editMode: false
+    }
+  },
+  validations () {
+    return {
+      expense: {
+        store: {
+          required
+        },
+        amount: {
+          required,
+          minValue: minValue(1)
+        },
+        timeOfPurchase: {
+          required
+        }
+      }
     }
   },
   created: function () {
