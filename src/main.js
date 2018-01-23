@@ -6,13 +6,14 @@ import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
 import { store } from './utils/store'
+import Vuelidate from 'vuelidate'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(BootstrapVue)
-
 Vue.use(VueResource)
+Vue.use(Vuelidate)
 
 Vue.config.productionTip = false
 
