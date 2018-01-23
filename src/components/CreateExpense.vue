@@ -1,5 +1,5 @@
 <template>
-  <b-form class="needs-validation" novalidate>
+  <div class="container">
     <div class="form-group">
       <label for="amount">Amount</label>
       <b-form-input v-model="expense.amount" type="number" :state="!$v.expense.amount.$invalid" class="form-control" placeholder="Enter amount"></b-form-input>
@@ -16,7 +16,7 @@
       <span class="invalid-feedback" v-if="$v.expense.store.$invalid">Store is mandatory.</span>
     </div>
     <button v-on:click="createExpense()" :disabled="$v.expense.$invalid" type="submit" :class="{'btn-secondary':$v.expense.$invalid, 'btn-primary':!$v.expense.$invalid  }" class="btn">Save</button>
-  </b-form>
+  </div>
 </template>
 
 <script>
