@@ -7,6 +7,7 @@ import router from './router'
 import VueResource from 'vue-resource'
 import { store } from './utils/store'
 import Vuelidate from 'vuelidate'
+import { login } from './utils/auth'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -14,6 +15,14 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 Vue.use(VueResource)
 Vue.use(Vuelidate)
+
+Vue.http.interceptors.push(function (request, next) {
+  next(function (response) {
+    if (response.status === 401) {
+      login()
+    }
+  })
+})
 
 Vue.config.productionTip = false
 
