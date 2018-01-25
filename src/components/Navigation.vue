@@ -12,12 +12,13 @@
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
+      <!-- <b-navbar-nav v-if="profile" class="ml-auto"> -->
 
         <b-nav-item-dropdown right>
           <!-- Using button-content slot -->
           <template slot="button-content">
+            <img :src="userPicture" alt="">
             <em>{{ userName }}</em>
-            <!-- <em>User</em> -->
           </template>
             <b-dropdown-item v-show="isLoggedIn" @click="handleLogout()">Sign out</b-dropdown-item>
         </b-nav-item-dropdown>
@@ -36,7 +37,8 @@ export default {
   name: 'Navigation',
   data () {
     return {
-      userName: ''
+      userName: '',
+      userPicture: ''
     }
   },
   mounted: function () {
@@ -46,6 +48,7 @@ export default {
           console.log('error', err)
         } else {
           this.userName = result.name
+          this.userPicture = result.picture
         }
       })
     }
@@ -72,5 +75,8 @@ export default {
 h1,
 h2 {
   font-weight: normal;
+}
+img {
+  height: 32px;
 }
 </style>
