@@ -6,6 +6,7 @@ module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   AUTH: {
     REDIRECT: '"http://localhost:8081/callback"',
-  }
+  },
+  API_URL: '"http://localhost:8666/api"'  
 })
 

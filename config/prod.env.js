@@ -8,5 +8,6 @@ module.exports = {
     SCOPE: '"openid profile full_access"',
     AUDIENCE: '"ExpenseManagerFrontends"'
   },
-  API_URL: '"https://expense-manager-backend.herokuapp.com/api"'
+  OLD_API_URL: '"https://expense-manager-backend.herokuapp.com/api"',
+  AZURE_API_URL: '"https://expensemanagerbackend.azurewebsites.net/api"'
 }
