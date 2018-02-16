@@ -95,7 +95,7 @@ call :SelectNodeVersion
 IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
   echo Running npm install --production
   pushd "%DEPLOYMENT_SOURCE%"
-  call :ExecuteCmd !NPM_CMD! cache clean
+  call :ExecuteCmd !NPM_CMD! cache clean --force
   call :ExecuteCmd !NPM_CMD! install --production
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
