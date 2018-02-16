@@ -13,7 +13,6 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "chalk": "2.3.1",
     "EventEmitter": "^1.0.0",
     "auth0-js": "^8.10.1",
     "auth0-lock": "^10.24.0",
