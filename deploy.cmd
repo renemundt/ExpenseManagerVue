@@ -93,10 +93,12 @@ call :SelectNodeVersion
 
 :: 2. Install npm packages
 IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
+  echo Running npm install --production
   pushd "%DEPLOYMENT_SOURCE%"
   call :ExecuteCmd !NPM_CMD! install --production
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
+  echo Done running npm install --production  
 )
 
 :: 3. Vue Prod Build
@@ -104,7 +106,7 @@ IF EXIST "%DEPLOYMENT_SOURCE%/build/build.js" (
   echo Building App in %DEPLOYMENT_SOURCE%…
   pushd "%DEPLOYMENT_SOURCE%"
   call :ExecuteCmd !NPM_CMD! run build
-½  IF !ERRORLEVEL! NEQ 0 goto error
+  IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
 
@@ -125,7 +127,7 @@ call %_CMD_%
 if "%ERRORLEVEL%" NEQ "0" echo Failed exitCode=%ERRORLEVEL%, command=%_CMD_%
 exit /b %ERRORLEVEL%
 
-:error
+s:error
 endlocal
 echo An error has occurred during web site deployment.
 call :exitSetErrorLevel
