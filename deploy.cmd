@@ -95,7 +95,7 @@ call :SelectNodeVersion
 IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
   echo Running npm install
   pushd "%DEPLOYMENT_SOURCE%"
-  call :ExecuteCmd !NPM_CMD! install
+  call :ExecuteCmd !NPM_CMD! install --no-optional
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
   echo Done running npm install
