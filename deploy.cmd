@@ -93,12 +93,12 @@ call :SelectNodeVersion
 
 :: 2. Install npm packages
 IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
-  echo Running npm install --production
+  echo Running npm install
   pushd "%DEPLOYMENT_SOURCE%"
-  call :ExecuteCmd !NPM_CMD! install --production
+  call :ExecuteCmd !NPM_CMD! install
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
-  echo Done running npm install --production  
+  echo Done running npm install
 )
 
 :: 3. Vue Prod Build
