@@ -103,7 +103,7 @@ function isTokenExpired (token) {
 export function getProfile (cb) {
   const accessToken = localStorage.getItem('access_token')
   if (!accessToken) {
-    throw new Error('Access token must exist to fetch profile')
+    login()
   }
 
   if (userProfile) { cb(null, userProfile) }
