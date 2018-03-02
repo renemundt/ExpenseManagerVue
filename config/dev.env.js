@@ -7,7 +7,7 @@ module.exports = merge(prodEnv, {
   AUTH: {
     REDIRECT: '"http://localhost:8081/callback"',
   },
-  API_URL_LOCAL: '"http://localhost:8666/api"',
-  API_URL: '"https://expensemanagerbackend.azurewebsites.net/api"'  
+  API_URL: '"http://localhost:8666/api"',
+  API_URL_PROD: '"https://expensemanagerbackend.azurewebsites.net/api"'  
 })
 
