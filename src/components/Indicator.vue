@@ -1,6 +1,6 @@
 <template>
-  <div class="indicator" v-bind:class="[temperatureClass]">
-    <div class="average">{{average | currency }}</div>
+  <div class="indicator">
+    <div class="average" v-bind:class="[temperatureClass]">{{average | currency }}</div>
   </div>
 </template>
 
@@ -28,7 +28,7 @@ h2 {
   font-weight: normal;
 }
 .indicator {
-  width: 200px;
+  width: 60px;
   height: 100%;
 
   position: absolute;
@@ -44,15 +44,15 @@ h2 {
   top: 50%;
   transform: translateY(-50%);
   text-align: center;
-  font-weight: bold;
+  font-weight: 900;
 }
 .temperature-normal {
-  background-color: darkgreen;
+  color: green;
 }
 .temperature-middle {
-  background-color: yellow;
+  color: yellow;
 }
 .temperature-high {
-  background-color: red;
+  color: red;
 }
 </style>

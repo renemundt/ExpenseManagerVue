@@ -1,7 +1,5 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="dark">
-    <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-    <b-collapse is-nav id="nav_collapse">
+  <b-navbar type="dark" variant="dark">
       <b-navbar-nav>
         <b-nav-item :to="{ name: 'Expenses'}">Expenses</b-nav-item>
         <b-nav-item :to="{ name: 'CreateExpense'}">Create</b-nav-item>
@@ -12,19 +10,8 @@
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-      <!-- <b-navbar-nav v-if="profile" class="ml-auto"> -->
-
-        <b-nav-item-dropdown right>
-          <!-- Using button-content slot -->
-          <template slot="button-content">
-            <img :src="userPicture" alt="">
-            <em>{{ userName }}</em>
-          </template>
-            <b-dropdown-item v-show="isLoggedIn" @click="handleLogout()">Sign out</b-dropdown-item>
-        </b-nav-item-dropdown>
+        <b-nav-item right style="display:inline-block;" @click="handleLogout()">Sign out</b-nav-item>
       </b-navbar-nav>
-
-    </b-collapse>
   </b-navbar>
 
 </template>
@@ -75,8 +62,13 @@ export default {
 h1,
 h2 {
   font-weight: normal;
+  font-size: 30px;
 }
 img {
   height: 32px;
 }
+ul, li {
+  display: inline-block;
+}
+
 </style>
