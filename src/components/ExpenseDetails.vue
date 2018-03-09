@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>Expense details</h1>
     <div class="container" v-if="expense">
+      <h1>Expense details</h1>
       <div class="form-group">
         <label for="amount">Amount</label>
         <b-form-input v-model="expense.amount" type="number" :state="!$v.expense.amount.$invalid" class="form-control" placeholder="Enter amount" :disabled="!editMode"></b-form-input>
