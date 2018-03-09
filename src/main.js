@@ -11,7 +11,7 @@ import { login } from './utils/auth'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import 'font-awesome/css/font-awesome.css?v1234'
+import 'font-awesome/css/font-awesome.css?v=1234'
 
 Vue.use(BootstrapVue)
 Vue.use(VueResource)
