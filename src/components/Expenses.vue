@@ -8,8 +8,7 @@
           <th scope="col">Date</th>
           <th scope="col">Store</th>
           <th scope="col" class="text-right">Amount</th>
-          <th scope="col"> </th>
-          <th scope="col">User</th>
+          <th scope="col" class="d-none d-sm-block">User</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
@@ -21,13 +20,12 @@
           </td>
           <td>{{expense.store }}</td>
           <td class="text-right">{{expense.amount | currency}}</td>
-          <td></td>
-          <td>{{expense.profile ? expense.profile.givenName : '-'}}</td>
+          <td class="d-none d-sm-block">{{expense.profile ? expense.profile.givenName : '-'}}</td>
           <td>
             <div v-if="expense.id" class="fixed-buttons-width">
               <button v-if="activeButtonIndex == null" type="button" class="btn btn-danger btn-sm" v-on:click="alert(index)">Delete</button>
-              <button v-if="activeButtonIndex == index" type="button" class="btn btn-warning btn-sm pull-left" v-on:click="cancel()">Cancel</button>
-              <button v-if="activeButtonIndex == index" type="button" class="btn btn-danger btn-sm pull-right" v-on:click="deleteExpense(expense.id)">Delete(Yes)</button>
+              <button v-if="activeButtonIndex == index" type="button" class="btn btn-warning btn-sm pull-left" v-on:click="cancel()">No</button>
+              <button v-if="activeButtonIndex == index" type="button" class="btn btn-danger btn-sm pull-right" v-on:click="deleteExpense(expense.id)">Yes</button>
             </div>
           </td>
         </tr>
@@ -108,6 +106,15 @@ h2 {
 }
 
 .fixed-buttons-width {
-  width: 150px;
+  width: 100px;
+}
+
+button {
+  float: left;
+  border-radius: 0
+}
+
+.table thead th {
+    border-bottom: 0px solid ;
 }
 </style>
