@@ -10,11 +10,17 @@
 
 <script>
 import Navigation from './components/navigation.vue'
+import EventBus from './utils/eventBus'
 
 export default {
   name: 'app',
   components: {
     navigation: Navigation
+  },
+  mounted: function () {
+    EventBus.$on('EVENT_A', () => {
+      this.$router.push('barometer')
+    })
   }
 }
 </script>

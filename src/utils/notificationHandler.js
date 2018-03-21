@@ -1,4 +1,4 @@
-import router from './../router'
+import EventBus from './eventBus'
 
 export default {
   install: function (Vue, options) {
@@ -7,7 +7,7 @@ export default {
     Vue.mixin({
       created () {
         Vue.prototype.$socket.onmessage = function (response) {
-          router.push('/barometer')
+          EventBus.$emit('EVENT_A', 'Must redirect')
         }
       }
     })
