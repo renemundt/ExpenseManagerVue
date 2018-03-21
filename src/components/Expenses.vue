@@ -84,7 +84,7 @@ export default {
     },
     cancel: function () {
       this.activeButtonIndex = null
-      this.deleteCoZnfirm = false
+      this.deleteConfirm = false
     },
     sortExpenses: function (expenses) {
       return expenses.sort(function (a, b) {

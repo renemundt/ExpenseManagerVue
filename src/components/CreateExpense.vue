@@ -68,6 +68,7 @@ export default {
       expensesService.createExpense(this.expense, (err, result) => {
         if (err) console.error(err)
         else {
+          this.$socket.send(this.expense.amount)
           this.$router.push('/expenses')
         }
       })

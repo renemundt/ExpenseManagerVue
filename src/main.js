@@ -8,7 +8,7 @@ import VueResource from 'vue-resource'
 import { store } from './utils/store'
 import Vuelidate from 'vuelidate'
 import { login } from './utils/auth'
-
+import NotificationHandler from './utils/notificationHandler'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'font-awesome/css/font-awesome.css?v=1234'
@@ -16,6 +16,7 @@ import 'font-awesome/css/font-awesome.css?v=1234'
 Vue.use(BootstrapVue)
 Vue.use(VueResource)
 Vue.use(Vuelidate)
+Vue.use(NotificationHandler)
 
 Vue.http.interceptors.push(function (request, next) {
   next(function (response) {
