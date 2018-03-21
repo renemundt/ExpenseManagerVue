@@ -49,10 +49,6 @@ export default {
   },
   created: function () {
     this.getExpenses()
-
-    // setInterval(function () {
-    //   this.getExpenses()
-    // }.bind(this), 20000)
   },
   methods: {
     longDate: function (input) {
