@@ -30,7 +30,7 @@ export default {
   name: 'CreateExpense',
   data () {
     return {
-      expense: null
+      expense: {}
     }
   },
   validations () {

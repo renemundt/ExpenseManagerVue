@@ -2,7 +2,7 @@ import EventBus from './eventBus'
 
 export default {
   install: function (Vue, options) {
-    Vue.prototype.$socket = new WebSocket('ws://localhost:8666')
+    Vue.prototype.$socket = new WebSocket(process.env.WEBSOCKETURL)
 
     Vue.mixin({
       created () {
