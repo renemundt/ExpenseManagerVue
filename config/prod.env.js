@@ -11,5 +11,5 @@ module.exports = {
   },
   OLD_API_URL: '"https://expense-manager-backend.herokuapp.com/api"',
   API_URL: '"https://expensemanagerbackend.azurewebsites.net/api"',
-  WEBSOCKETURL: '"wss://expensemanagerfrontend.azurewebsites.net"'
+  WEBSOCKETURL: '"wss://expensemanagerbackend.azurewebsites.net"'
 }
