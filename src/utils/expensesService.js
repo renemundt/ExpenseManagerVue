@@ -14,7 +14,7 @@ export function getExpenses (callback) {
   const endDate = `${presentDay.format('YYYY')}-${presentDay.format('MM')}-${presentDay.daysInMonth()}T23:59:59.000Z`
   const url = `${apiUrl}/expenses?startDate=${startDate}&endDate=${endDate}`
   Vue.http.get(url, options).then(response => {
-    const total = response.data.map(expense => expense.amount).reduce((previous, current) => { return previous + current })
+    const total = response.data.length > 0 ? response.data.map(expense => expense.amount).reduce((previous, current) => { return previous + current }) : 0
     const average = total / +moment().toDate().getDate()
     store.commit('setAverage', average)
     expandWithEmptySlots(response.data, (result) => {
