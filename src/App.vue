@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <navigation></navigation>
+    <navigation v-if="isLoggedIn"></navigation>
     <main role="main">
       <router-view>
       </router-view>
@@ -11,9 +11,15 @@
 <script>
 import Navigation from './components/navigation.vue'
 import EventBus from './utils/eventBus'
+import { isLoggedIn } from './utils/auth'
 
 export default {
   name: 'app',
+  data () {
+    return {
+      isLoggedIn: isLoggedIn()
+    }
+  },
   components: {
     navigation: Navigation
   },

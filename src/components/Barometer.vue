@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isLoggedIn && ready">
     <h1>Barometer</h1>
     <table class="table table-sm">
       <thead class="thead-inverse">
@@ -31,11 +31,14 @@
 <script>
 import moment from 'moment'
 import * as expensesService from './../utils/expensesService'
+import { isLoggedIn } from '../utils/auth'
 
 export default {
   name: 'Barometer',
   data () {
     return {
+      ready: false,
+      isLoggedIn: isLoggedIn(),
       barometerExpenses: []
     }
   },
@@ -52,6 +55,7 @@ export default {
         if (err) console.error(err)
         else {
           this.barometerExpenses = this.sortExpenses(this.groupByTimeOfPurchaseAndCalcTotals(result))
+          this.ready = true
         }
       })
     },
